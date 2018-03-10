@@ -1,0 +1,12 @@
+# Recommended by https://github.com/django/django/blob/master/.gitignore
+
+*.egg-info
+*.pot
+*.py[co]
+*.sqlite3
+__pycache__
+MANIFEST
+docs/_build/
+docs/locale/
+build/
+venv/
