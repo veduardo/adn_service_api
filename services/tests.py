@@ -1,4 +1,4 @@
-import unittest
+import json, unittest
 
 from app import app
 
@@ -21,6 +21,21 @@ class ServiceTestClass(unittest.TestCase):
 
         result = self.app.get("/service/health")
         self.assertEqual(result.status_code, 200)
+
+    def test_top_products(self):
+        """ Test the /service/products/top endpoint """
+
+        result = self.app.get("/service/products/top")
+        self.assertEqual(result.status_code, 200)
+
+    def test_top_products_content(self):
+        """ Test if the endpoint is returning a list """
+
+        result = self.app.get("/service/products/top")
+        data = json.loads(result.get_data(as_text=True))
+
+        self.assertIsInstance(data, list)
+        self.assertTrue(data)
 
 
 # runs the unit tests in the module

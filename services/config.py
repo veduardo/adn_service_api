@@ -17,3 +17,7 @@ CSRF_SESSION_KEY = "a243#$*t&*HUIzB"
 
 # Secret key for signing cookies
 SECRET_KEY = "asdf56af8*&%$#$dasfhj"
+
+# SQLAlchemy Settings
+SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(BASE_DIR, "services.sqlite3")
+SQLALCHEMY_TRACK_MODIFICATIONS = False
