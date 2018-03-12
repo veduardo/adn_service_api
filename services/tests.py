@@ -37,6 +37,26 @@ class ServiceTestClass(unittest.TestCase):
         self.assertIsInstance(data, list)
         self.assertTrue(data)
 
+    def test_get_orders_fail(self):
+        """ Test the endpoint for an invalid id """
+
+        result = self.app.get("/service/order/zzz")
+        self.assertEqual(result.status_code, 500)
+
+    def test_get_orders(self):
+        """ Test /service/order/<id> endpoint """
+
+        result = self.app.get("/service/order/1")
+        self.assertEqual(result.status_code, 200)
+
+    def test_get_orders_content(self):
+        """ Test if the endpoint returns a list with the orders """
+
+        result = self.app.get("/service/order/1")
+        data = json.loads(result.get_data(as_text=True))
+
+        self.assertIsInstance(data, list)
+        self.assertTrue(data)
 
 # runs the unit tests in the module
 if __name__ == '__main__':

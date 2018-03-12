@@ -37,3 +37,12 @@ def new_order():
 
     success = {"message" : "success"}
     return make_response(jsonify(success), 201)
+
+@app.route('/service/order/<customer_id>')
+def get_orders(customer_id):
+    orders = [o.serialize for o in Order.query.filter_by(customer_id=customer_id).all()]
+    if orders:
+        return make_response(jsonify(orders), 200)
+    else:
+        err = {"message" : "internal server error"}
+        return make_response(jsonify(err), 500)
