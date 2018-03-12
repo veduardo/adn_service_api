@@ -45,7 +45,6 @@ class Product(db.Model):
 class Order(db.Model):
     """ This class represents the 'order' table """
 
-
     id                  = db.Column(db.Integer, primary_key=True)
     products            = db.relationship('Product',
                             secondary=products,
@@ -83,7 +82,6 @@ class Order(db.Model):
 
 class Customer(db.Model):
     """ This class represents the 'customer' table """
-
 
     id      = db.Column(db.Integer, primary_key=True)
     name    = db.Column(db.String(20))
