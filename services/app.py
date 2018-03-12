@@ -16,3 +16,8 @@ db = SQLAlchemy(app)
 # >>> db.create_all()
 
 from controllers import *
+
+# Preloads useful objects into the flask shell
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'Order': Order, 'Product': Product, 'Customer': Customer}

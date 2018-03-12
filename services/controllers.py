@@ -1,7 +1,7 @@
-from flask import jsonify, make_response
+from flask import jsonify, make_response, request
 
 from app import app
-from models import Product
+from models import Customer, Product, Order
 
 
 #
@@ -23,3 +23,17 @@ def top_products():
     else:
         err = {"message" : "internal server error"}
         return make_response(jsonify(err), 500)
+
+@app.route('/service/order', methods=['POST'])
+def new_order():
+    received = request.get_json()            #TODO: All input fields must be validated
+    customer_id = int(received['customer_id'])
+    order = Order(customer_id=customer_id)
+
+    for product_id in received['products']:
+        product = Product.query.get(product_id)
+        order.products.append(product)
+    order.save()
+
+    success = {"message" : "success"}
+    return make_response(jsonify(success), 201)
