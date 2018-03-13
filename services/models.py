@@ -1,4 +1,5 @@
 from datetime import datetime
+from operator import itemgetter
 
 from app import db
 
@@ -38,8 +39,19 @@ class Product(db.Model):
     @staticmethod
     def get_top_products():
         """ Returns the top ordered products """
-        # TODO: implement the logic to return the top products
-        return Product.query.all()
+
+        top_products_dict = {}
+        orders = Order.query.all()
+        for order in orders:
+            for product in order.products:
+                if product.id in top_products_dict:
+                    top_products_dict[product.id] += 1
+                else:
+                    top_products_dict[product.id] = 1
+
+        top_products = sorted(top_products_dict.items(), key=itemgetter(1))
+        top_products.reverse()
+        return [key for key,value in top_products]
 
 
 class Order(db.Model):
